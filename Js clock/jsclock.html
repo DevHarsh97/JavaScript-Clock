@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Clock</title>
+</head>
+<body>
+
+	<div class="clock">
+
+		<div class="clock-face">
+ 		<svg viewBox="0 0 40 40">
+  
+		  <g class="marks">
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		    <line x1="15" y1="0" x2="16" y2="0" />
+		</g>
+
+		<circle cx="20" cy="20" r="0.7" class="pin" />
+
+			<div class="hand hour-hand"></div>
+			<div class="hand min-hand"></div>
+			<div class="hand second-hand"></div>
+		</svg> 
+		</div>
+	</div>
+
+
+	<style type="text/css">
+
+	.clock {
+	  background: url(clock.jpg);
+      background-size: cover;
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #EFEFEF,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 50%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+    html {
+      background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=5);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    
+   svg {
+		  fill: white;
+		  stroke: black;
+		  stroke-width: 1;
+		  stroke-linecap: round;
+		  position: relative;
+		  width: 100%;
+		  height: 100%;
+		  
+		}
+		.marks {
+		  transform: translate(20px, 20px);
+		  stroke-width: 0.2;
+		}
+		.marks > line:nth-child(1) {
+		  /* There are 12 marks, so we rotate by 30deg (12 * 30 = 360) */
+		 transform: rotate(30deg); 
+		}
+		.marks > line:nth-child(2) {
+		  transform: rotate(calc(2 * 30deg));
+		}
+		.marks > line:nth-child(3) {
+		  transform: rotate(calc(3 * 30deg));
+		  stroke-width: 0.5;
+		}
+		.marks > line:nth-child(4) {
+		  transform: rotate(calc(4 * 30deg));
+		}
+		.marks > line:nth-child(5) {
+		  transform: rotate(calc(5 * 30deg));
+		}
+		.marks > line:nth-child(6) {
+		  transform: rotate(calc(6 * 30deg));
+		  stroke-width: 0.5;
+		}
+		.marks > line:nth-child(7) {
+		  transform: rotate(calc(7 * 30deg));
+		}
+		.marks > line:nth-child(8) {
+		  transform: rotate(calc(8 * 30deg));
+		}
+		.marks > line:nth-child(9) {
+		  transform: rotate(calc(9 * 30deg));
+		  stroke-width: 0.5;
+		}
+		.marks > line:nth-child(10) {
+		  transform: rotate(calc(10 * 30deg));
+		}
+		.marks > line:nth-child(11) {
+		  transform: rotate(calc(11 * 30deg));
+		}
+		.marks > line:nth-child(12) {
+		  transform: rotate(calc(12 * 30deg));
+		  stroke-width: 0.5;
+		}
+
+	</style>
+
+	<script type="text/javascript">
+
+		const secondHand = document.querySelector('.second-hand');
+		const minHand = document.querySelector('.min-hand');
+		const hoursHand = document.querySelector('.hour-hand');
+		
+		function setDate() {
+			const now = new Date();
+
+			//console.log(now);
+
+			const seconds = now.getSeconds();
+			const secondsDegrees = ((seconds / 60) * 360) + 90;
+			//console.log(secondsDegrees);
+            secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+            const mins = now.getMinutes();
+            //console.log(mins)
+            const minsDegrees = ((mins / 60) * 360) + 90;
+            //console.log(minsDegrees);
+            minHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+            const hours = now.getHours();
+            //console.log(hours);
+			const hoursDegrees = ((hours / 12) * 360) + 90;
+			//console.log(hoursDegrees);
+            hoursHand.style.transform = `rotate(${hoursDegrees}deg)`;
+
+			
+		}
+
+		setInterval(setDate, 1000);
+
+	    setDate();
+
+
+	</script>
+
+</body>
+</html>
